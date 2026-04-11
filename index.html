@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toll Plaza Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+            <div>
+                <h1>🛣️ Toll Plaza System</h1>
+                <div class="sub">🚦 Smart electronic toll collection | Real-time billing & analytics</div>
+            </div>
+        </div>
+
+        <div class="grid-container">
+            <!-- LEFT: Toll collection form + transactions -->
+            <div class="toll-panel">
+                <div class="card">
+                    <h2>🚗 Process Toll Payment</h2>
+                    <div class="form-group">
+                        <label>🚛 Vehicle Type</label>
+                        <select id="vehicleType">
+                            <option value="Car">Car (₹65)</option>
+                            <option value="SUV">SUV / Van (₹95)</option>
+                            <option value="Truck">Truck / Bus (₹150)</option>
+                            <option value="Bike">Bike (₹35)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>🔖 Vehicle Number (optional)</label>
+                        <input type="text" id="vehicleNumber" placeholder="e.g., MH12AB1234" maxlength="15">
+                    </div>
+                    <div class="form-group">
+                        <label>🏷️ Toll Plaza Lane (1-4)</label>
+                        <input type="number" id="lane" min="1" max="4" value="1" step="1">
+                    </div>
+                    <button id="payBtn">✅ Pay Toll & Record Transaction</button>
+                    <button id="resetAllBtn" class="reset-btn">🔄 Reset All Data</button>
+                </div>
+
+                <div class="card">
+                    <h2>📋 Recent Transactions</h2>
+                    <div class="table-wrapper">
+                        <table id="transTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Vehicle</th>
+                                    <th>Number</th>
+                                    <th>Lane</th>
+                                    <th>Amount (₹)</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transBody">
+                                <tr>
+                                    <td colspan="6" style="text-align:center;">No transactions yet</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: Analytics and Summary -->
+            <div class="stats-panel">
+                <div class="card">
+                    <h2>📊 Toll Summary</h2>
+                    <div class="stat-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">Total Vehicles</span>
+                            <span class="stat-number" id="totalVehicles">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Total Revenue</span>
+                            <span class="stat-number" id="totalRevenue">₹0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Average Toll</span>
+                            <span class="stat-number small-stat" id="avgToll">₹0</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <h2 style="font-size:1.2rem; margin-top: 0px;">🚦 Lane-wise Count</h2>
+                    <div id="laneStats" style="margin-top: 12px;">
+                        <div class="stat-item">
+                            <span>Lane 1</span>
+                            <span id="lane1Count">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Lane 2</span>
+                            <span id="lane2Count">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Lane 3</span>
+                            <span id="lane3Count">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Lane 4</span>
+                            <span id="lane4Count">0</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <p style="font-size: 0.85rem; color: #2d4a6e;">
+                            <strong>💡 Rate Card:</strong> Car ₹65 | SUV ₹95 | Truck/Bus ₹150 | Bike ₹35
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-note">
+            ✨ Toll Management System — Real-time tracking with local storage
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
