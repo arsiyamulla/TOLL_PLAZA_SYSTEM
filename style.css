@@ -22,3 +22,12 @@ body{
     padding: 1.8rem 2rem;
     transition: all 0.25;
 }
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
