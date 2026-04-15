@@ -50,3 +50,13 @@ body{
     gap: 2rem;
     margin-top: 1rem;
 }
+
+.toll-panel {
+    flex: 2;
+    min-width: 280px;
+}
+
+.stats-panel {
+    flex: 1.2;
+    min-width: 260px;
+}
