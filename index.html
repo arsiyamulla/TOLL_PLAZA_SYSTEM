@@ -3,120 +3,701 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toll Plaza Management System</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Toll Plaza - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+        }
+
+        .login-wrapper {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .login-container {
+            display: flex;
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            min-height: 600px;
+        }
+
+        /* Left Side - Branding Section */
+        .brand-section {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 8s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .logo-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bounce 2s ease infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .brand-title {
+            font-size: 42px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .brand-title span {
+            color: #ffd700;
+        }
+
+        .brand-tagline {
+            color: rgba(255,255,255,0.9);
+            font-size: 16px;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .features-list {
+            margin-top: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .feature-item i {
+            width: 30px;
+            font-size: 20px;
+        }
+
+        /* Right Side - Form Section */
+        .form-section {
+            flex: 1;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow-y: auto;
+            max-height: 700px;
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 28px;
+            color: white;
+        }
+
+        .card-header h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .card-header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .role-toggle {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            background: #f5f5f5;
+            padding: 5px;
+            border-radius: 60px;
+        }
+
+        .role-btn {
+            flex: 1;
+            padding: 12px;
+            background: transparent;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: #666;
+        }
+
+        .role-btn i {
+            font-size: 16px;
+        }
+
+        .role-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 3px 10px rgba(102,126,234,0.3);
+        }
+
+        /* Form Fields - Fixed Eye Button */
+        .input-field {
+            margin-bottom: 22px;
+        }
+
+        .input-field label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 16px;
+            z-index: 1;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 14px 50px 14px 42px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .input-wrapper input:focus {
+            border-color: #667eea;
+        }
+
+        /* Eye Button - Properly Positioned */
+        .toggle-password {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #999;
+            font-size: 18px;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s;
+            z-index: 1;
+        }
+
+        .toggle-password:hover {
+            color: #667eea;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 13px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            gap: 8px;
+        }
+
+        .checkbox-container input {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .checkbox-text {
+            color: #666;
+        }
+
+        .forgot-link {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102,126,234,0.4);
+        }
+
+        .demo-section {
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .demo-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .demo-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .demo-card:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+
+        .demo-role {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .demo-role i {
+            color: #667eea;
+        }
+
+        .demo-creds {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .fill-demo {
+            background: transparent;
+            border: 1.5px solid #667eea;
+            color: #667eea;
+            padding: 6px;
+            border-radius: 8px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        .fill-demo:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .toast-notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateX(400px);
+            transition: transform 0.3s;
+            z-index: 1000;
+            font-size: 14px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .toast-notification.show {
+            transform: translateX(0);
+        }
+
+        @media (max-width: 968px) {
+            .login-container {
+                flex-direction: column;
+            }
+            .brand-section {
+                padding: 40px;
+                text-align: center;
+            }
+            .features-list {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-section {
+                padding: 30px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="dashboard">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-            <div>
-                <h1>🛣️ Toll Plaza System</h1>
-                <div class="sub">🚦 Smart electronic toll collection | Real-time billing & analytics</div>
-            </div>
-        </div>
-
-        <div class="grid-container">
-            <!-- LEFT: Toll collection form + transactions -->
-            <div class="toll-panel">
-                <div class="card">
-                    <h2>🚗 Process Toll Payment</h2>
-                    <div class="form-group">
-                        <label>🚛 Vehicle Type</label>
-                        <select id="vehicleType">
-                            <option value="Car">Car (₹65)</option>
-                            <option value="SUV">SUV / Van (₹95)</option>
-                            <option value="Truck">Truck / Bus (₹150)</option>
-                            <option value="Bike">Bike (₹35)</option>
-                        </select>
+    <div class="login-wrapper">
+        <div class="login-container">
+            <!-- Left Side - Branding -->
+            <div class="brand-section">
+                <div class="logo-icon">🛣️</div>
+                <h1 class="brand-title">TollPlaza<span>Pro</span></h1>
+                <p class="brand-tagline">Enterprise Toll Management System</p>
+                
+                <div class="features-list">
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Real-time toll collection</span>
                     </div>
-                    <div class="form-group">
-                        <label>🔖 Vehicle Number (optional)</label>
-                        <input type="text" id="vehicleNumber" placeholder="e.g., MH12AB1234" maxlength="15">
+                    <div class="feature-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Advanced analytics & reports</span>
                     </div>
-                    <div class="form-group">
-                        <label>🏷️ Toll Plaza Lane (1-4)</label>
-                        <input type="number" id="lane" min="1" max="4" value="1" step="1">
+                    <div class="feature-item">
+                        <i class="fas fa-qrcode"></i>
+                        <span>QR code & card scanning</span>
                     </div>
-                    <button id="payBtn">✅ Pay Toll & Record Transaction</button>
-                    <button id="resetAllBtn" class="reset-btn">🔄 Reset All Data</button>
-                </div>
-
-                <div class="card">
-                    <h2>📋 Recent Transactions</h2>
-                    <div class="table-wrapper">
-                        <table id="transTable">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Vehicle</th>
-                                    <th>Number</th>
-                                    <th>Lane</th>
-                                    <th>Amount (₹)</th>
-                                    <th>Time</th>
-                                </tr>
-                            </thead>
-                            <tbody id="transBody">
-                                <tr>
-                                    <td colspan="6" style="text-align:center;">No transactions yet</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="feature-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Secure payment processing</span>
                     </div>
                 </div>
             </div>
 
-            <!-- RIGHT: Analytics and Summary -->
-            <div class="stats-panel">
-                <div class="card">
-                    <h2>📊 Toll Summary</h2>
-                    <div class="stat-grid">
-                        <div class="stat-item">
-                            <span class="stat-label">Total Vehicles</span>
-                            <span class="stat-number" id="totalVehicles">0</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Total Revenue</span>
-                            <span class="stat-number" id="totalRevenue">₹0</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Average Toll</span>
-                            <span class="stat-number small-stat" id="avgToll">₹0</span>
-                        </div>
-                    </div>
-                    <hr>
-                    <h2 style="font-size:1.2rem; margin-top: 0px;">🚦 Lane-wise Count</h2>
-                    <div id="laneStats" style="margin-top: 12px;">
-                        <div class="stat-item">
-                            <span>Lane 1</span>
-                            <span id="lane1Count">0</span>
-                        </div>
-                        <div class="stat-item">
-                            <span>Lane 2</span>
-                            <span id="lane2Count">0</span>
-                        </div>
-                        <div class="stat-item">
-                            <span>Lane 3</span>
-                            <span id="lane3Count">0</span>
-                        </div>
-                        <div class="stat-item">
-                            <span>Lane 4</span>
-                            <span id="lane4Count">0</span>
+            <!-- Right Side - Form -->
+            <div class="form-section">
+                <div class="card-header">
+                    <div class="header-icon"><i class="fas fa-lock"></i></div>
+                    <h2>Welcome Back</h2>
+                    <p>Sign in to access your dashboard</p>
+                </div>
+
+                <div class="role-toggle">
+                    <button class="role-btn active" data-role="admin">
+                        <i class="fas fa-user-shield"></i> Administrator
+                    </button>
+                    <button class="role-btn" data-role="operator">
+                        <i class="fas fa-user-cog"></i> Toll Operator
+                    </button>
+                </div>
+
+                <form id="loginForm">
+                    <div class="input-field">
+                        <label>Username</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user input-icon"></i>
+                            <input type="text" id="username" placeholder="Enter your username" required>
                         </div>
                     </div>
-                    <hr>
-                    <div>
-                        <p style="font-size: 0.85rem; color: #2d4a6e;">
-                            <strong>💡 Rate Card:</strong> Car ₹65 | SUV ₹95 | Truck/Bus ₹150 | Bike ₹35
-                        </p>
+
+                    <div class="input-field">
+                        <label>Password</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-key input-icon"></i>
+                            <input type="password" id="password" placeholder="Enter your password" required>
+                            <button type="button" class="toggle-password" id="togglePasswordBtn">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="rememberMe"> 
+                            <span class="checkbox-text">Remember me</span>
+                        </label>
+                        <a href="#" class="forgot-link">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="login-btn">
+                        <i class="fas fa-arrow-right"></i> Sign In
+                    </button>
+                </form>
+
+                <div class="demo-section">
+                    <div class="demo-title">
+                        <i class="fas fa-info-circle"></i> 
+                        <span>Demo Credentials (Click to auto-fill)</span>
+                    </div>
+                    <div class="demo-grid">
+                        <div class="demo-card">
+                            <div class="demo-role">
+                                <i class="fas fa-user-shield"></i> 
+                                <strong>Administrator</strong>
+                            </div>
+                            <div class="demo-creds">
+                                <span><i class="fas fa-user"></i> Username: admin</span>
+                                <span><i class="fas fa-key"></i> Password: admin123</span>
+                            </div>
+                            <button class="fill-demo" data-username="admin" data-password="admin123" data-role="admin">
+                                <i class="fas fa-fill-drip"></i> Fill Credentials
+                            </button>
+                        </div>
+                        <div class="demo-card">
+                            <div class="demo-role">
+                                <i class="fas fa-user-cog"></i> 
+                                <strong>Toll Operator</strong>
+                            </div>
+                            <div class="demo-creds">
+                                <span><i class="fas fa-user"></i> Username: operator</span>
+                                <span><i class="fas fa-key"></i> Password: oper123</span>
+                            </div>
+                            <button class="fill-demo" data-username="operator" data-password="oper123" data-role="operator">
+                                <i class="fas fa-fill-drip"></i> Fill Credentials
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="footer-note">
-            ✨ Toll Management System — Real-time tracking with local storage
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <div id="toast" class="toast-notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMsg"></span>
+    </div>
+
+    <script>
+        // ========== EYE BUTTON FUNCTIONALITY - WORKING FIX ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+            const passwordInput = document.getElementById('password');
+            
+            if (togglePasswordBtn && passwordInput) {
+                console.log("Eye button found - attaching event");
+                
+                togglePasswordBtn.addEventListener('click', function() {
+                    // Toggle password visibility
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    
+                    // Toggle eye icon
+                    const icon = this.querySelector('i');
+                    if (icon) {
+                        icon.classList.toggle('fa-eye');
+                        icon.classList.toggle('fa-eye-slash');
+                    }
+                    
+                    console.log("Password visibility toggled:", type);
+                });
+            } else {
+                console.log("Elements not found");
+            }
+        });
+
+        // ========== REST OF THE LOGIN FUNCTIONALITY ==========
+        
+        // Role toggle
+        const roleBtns = document.querySelectorAll('.role-btn');
+        let selectedRole = 'admin';
+        
+        roleBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                roleBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                selectedRole = this.dataset.role;
+            });
+        });
+
+        // Fill demo credentials
+        document.querySelectorAll('.fill-demo').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.getElementById('username').value = this.dataset.username;
+                document.getElementById('password').value = this.dataset.password;
+                const role = this.dataset.role;
+                
+                roleBtns.forEach(b => {
+                    if (b.dataset.role === role) {
+                        b.click();
+                    }
+                });
+                
+                showToast(`✓ ${role === 'admin' ? 'Admin' : 'Operator'} credentials filled!`);
+            });
+        });
+
+        // Login form submission
+        const loginForm = document.getElementById('loginForm');
+        if (loginForm) {
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const role = document.querySelector('.role-btn.active').dataset.role;
+
+                if (role === 'admin' && username === 'admin' && password === 'admin123') {
+                    const user = { username, role, loginTime: new Date().toISOString() };
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    showToast('✓ Login successful! Redirecting to Admin Dashboard...');
+                    setTimeout(() => {
+                        window.location.href = 'admin.html';
+                    }, 1000);
+                } 
+                else if (role === 'operator' && username === 'operator' && password === 'oper123') {
+                    const user = { username, role, loginTime: new Date().toISOString() };
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    showToast('✓ Login successful! Redirecting to Operator Panel...');
+                    setTimeout(() => {
+                        window.location.href = 'operator.html';
+                    }, 1000);
+                } 
+                else {
+                    showToast('✗ Invalid credentials! Please check username and password.', 'error');
+                    const card = document.querySelector('.form-section');
+                    card.style.animation = 'shake 0.5s ease';
+                    setTimeout(() => {
+                        card.style.animation = '';
+                    }, 500);
+                }
+            });
+        }
+
+        // Shake animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-10px); }
+                75% { transform: translateX(10px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Toast function
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            if (!toast) return;
+            
+            const icon = toast.querySelector('i');
+            const msgSpan = document.getElementById('toastMsg');
+            
+            if (type === 'success') {
+                icon.className = 'fas fa-check-circle';
+                toast.style.background = '#28a745';
+            } else {
+                icon.className = 'fas fa-exclamation-circle';
+                toast.style.background = '#dc3545';
+            }
+            
+            msgSpan.innerText = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
 </body>
 </html>

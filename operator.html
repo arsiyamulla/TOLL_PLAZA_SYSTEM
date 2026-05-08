@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operator - Toll Plaza</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        .operator-header {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .operator-header h1 {
+            font-size: 24px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .operator-container {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr 1.2fr;
+            gap: 20px;
+            padding: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 20px;
+            border-left: 4px solid #667eea;
+            padding-left: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 14px;
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .payment-btn {
+            padding: 15px;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .payment-btn:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .amount-display {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea15, #764ba215);
+            border-radius: 15px;
+        }
+
+        .amount-display h3 {
+            font-size: 28px;
+            color: #667eea;
+        }
+
+        .scanner-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .scanner-box {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .scan-placeholder i {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .cash-entry, .fasttag-entry {
+            margin-top: 20px;
+        }
+
+        .payment-success {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .success-animation {
+            font-size: 60px;
+            animation: bounce 0.5s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .logout-small {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 1000px) {
+            .operator-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="operator-header">
+        <h1>🛣️ Toll Plaza - Payment Processing</h1>
+        <div><span id="opName">Operator</span> <button id="operatorLogout" class="logout-small"><i class="fas fa-sign-out-alt"></i> Logout</button></div>
+    </div>
+
+    <div class="operator-container">
+        <div class="card">
+            <h2>🚗 Vehicle Details</h2>
+            <div class="form-group"><label>Vehicle Number *</label><input type="text" id="vehicleNumber" placeholder="Enter vehicle number"></div>
+            <div class="form-group"><label>Vehicle Type</label><select id="vehicleType"><option value="Car">Car - ₹65</option><option value="SUV">SUV/Van - ₹95</option><option value="Truck">Truck/Bus - ₹150</option><option value="Bike">Bike - ₹35</option></select></div>
+            <div class="form-group"><label>Lane Number</label><select id="lane"><option value="1">Lane 1</option><option value="2">Lane 2</option><option value="3">Lane 3</option><option value="4">Lane 4</option></select></div>
+        </div>
+
+        <div class="card">
+            <h2>💳 Payment Method</h2>
+            <div class="payment-methods">
+                <button class="payment-btn" data-method="Credit Card">💳 Credit Card</button>
+                <button class="payment-btn" data-method="Debit Card">💳 Debit Card</button>
+                <button class="payment-btn" data-method="UPI">📱 UPI</button>
+                <button class="payment-btn" data-method="FastTag">🏷️ FastTag</button>
+                <button class="payment-btn" data-method="Cash">💵 Cash</button>
+            </div>
+            <div class="amount-display"><h3>Amount: ₹<span id="totalAmount">65</span></h3></div>
+        </div>
+
+        <div class="card">
+            <h2 id="scannerTitle">📸 Payment Processing</h2>
+            <div id="scannerPanel">
+                <div id="scannerContainer" style="display:none;">
+                    <div class="scanner-box">
+                        <div class="scan-placeholder">
+                            <i class="fas fa-qrcode"></i>
+                            <p>Scanning QR Code / Card...</p>
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                    <button id="cancelScan" class="btn-primary">Cancel Scan</button>
+                </div>
+                <div id="cashPanel" style="display:none;">
+                    <div class="form-group"><label>Amount Received</label><input type="number" id="cashReceived" placeholder="Enter amount"></div>
+                    <div id="changeDisplay"></div>
+                    <button id="processCash" class="btn-primary">Process Cash Payment</button>
+                </div>
+                <div id="fasttagPanel" style="display:none;">
+                    <p>Processing FastTag for <strong id="ftVehicle"></strong></p>
+                    <div class="spinner"></div>
+                    <p id="ftStatus">Processing...</p>
+                    <button id="processFasttag" class="btn-primary" style="display:none;">Confirm Payment</button>
+                </div>
+                <div id="successPanel" style="display:none;">
+                    <div class="success-animation">✅</div>
+                    <h3>Payment Successful!</h3>
+                    <p>Receipt ID: <strong id="receiptId"></strong></p>
+                    <p>Amount: ₹<strong id="paidAmount"></strong></p>
+                    <button id="newPayment" class="btn-primary">Process New Vehicle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
